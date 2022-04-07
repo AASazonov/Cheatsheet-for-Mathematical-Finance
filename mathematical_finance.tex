@@ -1,0 +1,74 @@
+\part{Mathematical Finance}
+        \section{Basic Definitions}
+            Let us take a stochastic basis $\left(\Omega, \mathcal{F}, (\mathcal{F}_t), \P\right)$, and a $d$-dimensional Brownian motion $W_t$.
+            There is a one riskless asset and $n$ risky assets in the market with prices satisfying the following SDEs
+            \begin{align}
+                dB_t   &= r_t B_t dt, \qquad B_0 = 1 \\
+                dS_t^i &= \mu_t^i dt + \sigma_t^i \cdot dW_t,
+            \end{align}
+            where $r_t\in \left[-a, \infty\right)$, $\mu_t\in\mathbb{R}^n$, $\sigma_t\in\mathbb{R}^{n\times d}$ are good enough predictable processes,
+            $\sigma_t^i \cdot dW_t := \sum_{j=1}^d \sigma_t^{ij}dW_t^j$.
+
+            \begin{definition}
+                A \emph{complete market} is a market with two conditions:
+                \begin{enumerate}
+                    \item Negligible transaction costs and therefore also perfect information,
+                    \item There is a price for every asset in every possible state of the world (all bounded measurable liabilities are replicable).
+                \end{enumerate}
+            \end{definition}
+
+            \begin{definition}
+                A \emph{strategy} is a predictable process $\pi_t = \left(G_t, H_t^1, \dots, H_t^n\right)$ such that there exist the following It\^o integrals: \begin{equation}
+                    \int_0^t G_u dB_u, \quad \int_0^t H_u^i dS_u^t, \quad t\in\left[0, T\right]
+                \end{equation}
+                A \emph{self-financing} strategy is a trading strategy which requires no extra cost during the trading except for the initial capital, i.e. $dV_t^\pi = G_tdB_t + H_t \cdot dS_t$.
+                An \emph{acceptable} strategy is a strategy which has a lower bound ($V_t^\pi \geq -c \text{  a.s.}\quad \forall t > 0$).
+            \end{definition}
+            \begin{nb}
+                Futher we assume that all strategies are self-financing and acceptable.
+            \end{nb}
+            \begin{definition}
+                A \emph{price} of a portfolio is a process $V_t^\pi:= G_t B_t + H_t \cdot S_t$.
+            \end{definition}
+
+            \begin{definition}
+                \emph{Absence of arbitrage} (AoA, NA) means that there exists no strategy $\pi_t$ such that
+                \begin{enumerate}
+                    \item $V_0^\pi = 0$
+                    \item $V_T^\pi \geq 0$
+                    \item $\P (V_t^\pi > 0) > 0$
+                \end{enumerate}
+            \end{definition}
+            \begin{definition}
+                \emph{Equivalent martingale measure} (EMM) is a probability measure $Q \sim \P$ such that the discounted prices $S_t^{*,i} := \frac{S_t^i}{B_t}$ are martingales w.r.t. $Q$.
+            \end{definition}
+
+        \section{Fundamental Theoretical Results in Mathematical Finance}
+        \begin{theorem} (First Fundamental Theorem of Mathematical Finance)
+            \emph{
+                There is no arbitrage in the market if and only if the EMM exists and is unique.
+            }
+        \end{theorem}
+        \begin{theorem}
+            \emph{
+                A \emph{fair price} of a replicable liability $X$ is equal to
+                \begin{equation}
+                    V_t(X) = B_t \E^Q\left[\left.\frac{X}{B_T}\right| \mathcal{F}_t\right],
+                \end{equation}
+                where $Q$ is an EMM.
+            }
+        \end{theorem}
+
+        \begin{theorem}
+            \emph{
+                A \emph{fair price interval} of a non-replicable liability $X$ is
+                \begin{equation}
+                    \left( B_t \inf_{Q} \E^Q\left[\left.\frac{X}{B_T}\right| \mathcal{F}_t\right],  B_t\sup_{Q} \E^Q\left[\left.\frac{X}{B_T}\right| \mathcal{F}_t\right]\right),
+                \end{equation}
+                where $Q$ is an EMM.
+            }
+        \end{theorem}
+
+        \begin{theorem}(Second Fundamental Theorem of Mathematical Finance)
+            \emph{An arbitrageless market is complete, i.e. any bounded liability is replicable if, and only if an EMM is unique.}
+        \end{theorem}
